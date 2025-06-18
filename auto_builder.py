@@ -175,9 +175,6 @@ def create_symbolic_links() -> None:
 
 
 def build_binutils_gdb() -> None:
-	if config.is_canadian_compiling:
-		create_symbolic_links()
-
 	cwd = config.build_cwd[config.name.binutils_gdb]
 	subprocess.run(binutils_gdb_configure(), cwd=cwd, env=config.env)
 
@@ -384,6 +381,10 @@ def main() -> None:
 	install_required_pkgs()
 
 	git_repos(get_neccessary_repos())
+
+	if config.is_canadian_compiling:
+		install_canadian_required_pkgs()
+		create_symbolic_links()
 
 	build_binutils_gdb()
 	build_gcc()

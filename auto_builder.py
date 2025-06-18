@@ -329,10 +329,6 @@ def update_bashrc_path(path: Path) -> str:
 		path_line.find("")
 
 
-def get_updated_path(new: str, orig: str) -> str:
-	return orig if new in orig else re.sub(r'(=)("?)(.*?)', lambda m: f'{m.group(1)}{m.group(2)}{new}:{m.group(3)}', orig)
-
-
 def update_temporary_env_var_path() -> None:
 	bin: str = config.install_dir / "bin"
 	path: str = config.env[config.name.env_path]
